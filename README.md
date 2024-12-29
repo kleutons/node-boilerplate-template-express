@@ -1,4 +1,4 @@
-# NODE BOILERPLATE - TYPESCRIPT EDITION
+# NODE BOILERPLATE - EXPRESS TS EDITION
 <img src="./.github/assets/node.ExpressTs.png" alt="Logo" height="300">
 
 
