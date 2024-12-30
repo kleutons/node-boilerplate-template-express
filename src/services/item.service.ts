@@ -1,37 +1,48 @@
-import { Request } from "express";
 import { DatabaseMemory } from "../data/database-memory";
+import { ItemCreateModel, ItemModel } from "../models/items.model";
+import { HttpStatusCodes } from "../errors/http-status-codes";
+import { HttpError } from "../errors/http-error";
+
 
 
 export class ItemService {
-
     private static database = new DatabaseMemory();
 
-
-    public async list(req:Request){
-        const search = req.query.search as string || undefined;
+    public async list(search?:string) {
         return ItemService.database.list(search);
     }
 
-    public async post(req:Request){
-        const { name } = req.body;
+
+    public async getById(id?:string): Promise<ItemModel>{
+        if(!id)
+            throw new HttpError(HttpStatusCodes.ERRO_BAD_REQUEST, "Id");
+
+        const item = ItemService.database.getById(id) as ItemModel; 
+        if (!item)
+            throw new HttpError(HttpStatusCodes.ERRO_NOT_FOUND, "Item");
+        return item;
+    }
+
+    public async post(item:ItemCreateModel) {
         ItemService.database.create({
-            name
+            name: item.name
         });
 
         console.log(ItemService.database.list());
     }
 
-    public async put(req:Request){
-        const itemId = req.params.id;
-        const { name } = req.body;
+    public async put(item: ItemModel) {
+        // Check item
+        await this.getById(item.id); 
 
-        ItemService.database.update(itemId, {
-            name
-        });
+        ItemService.database.update(item.id, { name: item.name });
+
+        console.log(ItemService.database.list());
     }
 
-    public async delete(req:Request){
-        const itemId = req.params.id;
-        ItemService.database.delete(itemId);
+    public async delete(id: string) {
+        // Check item
+        await this.getById(id); 
+        ItemService.database.delete(id);
     }
 }
