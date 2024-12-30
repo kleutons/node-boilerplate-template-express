@@ -1,10 +1,8 @@
-import express, { Request, Response } from "express"
+import express from "express"
 import cors from 'cors';
-import { middlewares } from "./middlewares/middlewares";
 import router from "./routes/routes";
 
-
-function createApp(){
+export default function createApp(){
     const app = express();
 
     //Use Cors
@@ -19,5 +17,3 @@ function createApp(){
 
     return app;
 }
-
-export default createApp;

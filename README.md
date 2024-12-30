@@ -3,7 +3,7 @@
 
 
 ### Don't start a new Node project from zero!
-### Use this simple **Nodejs** boilerplate with pre-configured **Typescript** in a modern way.
+### Use this simple **Nodejs** boilerplate with pre-configured **Typescript** and **EXPRESS** in a modern way.
 
 <br />
   <!-- Badges -->
@@ -32,21 +32,41 @@ This code source was developed with the following items:
 - [@types/cors][@types/node-npm] - type definitions Cors
 - [@types/express][@types/express] - type definitions for Express
 
-### 🟢 Layered Architecture
-- controlles
-- data (repositories)
-- services 
+## 🧩 Layered Project Structure
+```
+src/
+├── controllers/
+│   ├── item.controller.ts
+│   └── ...
+├── data/
+│   └── database-memory.ts
+├── errors/
+│   ├── http-error.ts
+│   ├── http-error-messages.ts
+│   └── http-status-codes.ts
+├── middlewares/
+│   ├── middlewares.ts
+│   └── ...
+├── models/
+│   ├── items.model.ts
+│   └── ...
+├── routes/
+│   ├── item.routes.ts
+│   └── ...
+├── services/
+│   ├── item.service.ts
+│   └── ...
+├── app.ts
+└── server.ts
+```
 
-### 💻 Use Routes
-- Main Route
-  - `GET /`  Response: { "message": "Server started" }
-- Route List Itens
-  - `GET /items`  Response: [ { "id": "1", "name": "Item 1" }, { "id": "2", "name": "Item 2" } ]
-  - `search (opcional)` - Name search
-- Route Update Itens
-  - `PUT /items`  Response: 204 - No Content
-- Route Delete Itens
-  - `DELETE /items/:id`  Response: 204 - No Content
+### 📃 Code Structure
+- **Controllers (controllers/):** Contains the logic to process HTTP requests.
+- **Services (services/):** Contains the business logic and interacts with the database.
+- **Models (models/):** Defines the data structure.
+- **Routes (routes/):** Defines endpoints and associates routes with controllers.
+- **Errors (errors/):** Contains the definition of custom errors and HTTP status codes.
+- **Data (data/):** Contains the in-memory database implementation.
 
 
 ### 📄 Files
@@ -85,6 +105,19 @@ $ npx npm-check-updates -u
 $ npm install
 
 ```
+
+
+## 🌐 Usage Example
+
+- Create a New Item
+  - Route: **POST /items**
+  - ``` { "name": "Novo Item" } ```
+- List Itens
+  - Route: **GET /items**
+  - ``` [ { "id": "1", "name": "Item 1" }, { "id": "2", "name": "Item 2" } ```
+- etc...
+
+
 ## Author
 
 | [<img src="https://avatars3.githubusercontent.com/u/106082564?s=96&v=4"><br><sub>Kleuton Novais</sub>](https://github.com/kleutons) |
